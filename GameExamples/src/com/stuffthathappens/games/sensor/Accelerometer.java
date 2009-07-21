@@ -1,4 +1,4 @@
-package com.stuffthathappens.games.accel;
+package com.stuffthathappens.games.sensor;
 
 import static android.hardware.SensorManager.DATA_X;
 import static android.hardware.SensorManager.DATA_Y;
@@ -28,7 +28,7 @@ import com.stuffthathappens.games.R;
  * 
  * @author Eric M. Burke
  */
-public class SensorEventListener extends Activity implements android.hardware.SensorEventListener, OnClickListener {
+public class Accelerometer extends Activity implements android.hardware.SensorEventListener, OnClickListener {
 	private SensorManager			sensorMgr;
 	private TextView				accuracyLabel;
 	private TextView				xLabel, yLabel, zLabel;

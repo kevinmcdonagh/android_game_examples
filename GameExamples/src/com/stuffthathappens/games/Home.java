@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import com.stuffthathappens.games.accel.SensorEventListener;
+import com.stuffthathappens.games.sensor.Accelerometer;
+import com.stuffthathappens.games.sensor.Orientation;
 
 public class Home extends Activity implements OnClickListener {
 	
 	private Button accelerometerBtn;
+	private Button orientationBtn;
 	private Button sensorListBtn;
 	private Button bouncingBallBtn;
 	private Button bubblesBtn;
@@ -24,6 +26,9 @@ public class Home extends Activity implements OnClickListener {
         
         accelerometerBtn = (Button) findViewById(R.id.accelerometer_btn);
         accelerometerBtn.setOnClickListener(this);
+
+        orientationBtn = (Button) findViewById(R.id.orientation_btn);
+        orientationBtn.setOnClickListener(this);
         
         sensorListBtn = (Button) findViewById(R.id.sensor_list_btn);
         sensorListBtn.setOnClickListener(this);
@@ -36,10 +41,12 @@ public class Home extends Activity implements OnClickListener {
     } 
     
     public void onClick(View v) {
-    	if (v == sensorListBtn) {
+		if (v == sensorListBtn) {
     		startActivity(new Intent(Home.this, Sensors.class));
     	} else if (v == accelerometerBtn) {
-    		startActivity(new Intent(Home.this, SensorEventListener.class));
+    		startActivity(new Intent(Home.this, Accelerometer.class));
+    	} else if (v == orientationBtn) {
+    		startActivity(new Intent(Home.this, Orientation.class));
     	} else if (v == bouncingBallBtn) {
     		startActivity(new Intent(Home.this, BouncingBallActivity.class));
     	} else if (v == bubblesBtn) {

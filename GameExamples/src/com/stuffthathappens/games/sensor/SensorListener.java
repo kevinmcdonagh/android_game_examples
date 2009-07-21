@@ -1,4 +1,4 @@
-package com.stuffthathappens.games.accel;
+package com.stuffthathappens.games.sensor;
 
 import static android.hardware.SensorManager.DATA_X;
 import static android.hardware.SensorManager.DATA_Y;

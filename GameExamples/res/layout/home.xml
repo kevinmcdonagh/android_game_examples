@@ -16,6 +16,12 @@
     	android:layout_height="wrap_content"
     	android:id="@+id/accelerometer_btn"
     	android:text="@string/accelerometer"/>
+
+    <Button
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:id="@+id/orientation_btn"
+    	android:text="@string/orientation"/>
     	
     <Button
     	android:layout_width="wrap_content"

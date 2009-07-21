@@ -22,12 +22,17 @@
 	    </activity>      
         
     	<activity 
-    		android:name=".accel.SensorListener" 
+    		android:name=".sensor.SensorListener" 
+    		android:label="@string/accelerometer"
+    		android:screenOrientation="portrait" />
+
+    	<activity 
+    		android:name=".sensor.Orientation" 
     		android:label="@string/accelerometer"
     		android:screenOrientation="portrait" />
     		
     	<activity 
-    		android:name=".accel.SensorEventListener" 
+    		android:name=".sensor.Accelerometer" 
     		android:label="@string/accelerometer"
     		android:screenOrientation="portrait" />
     
