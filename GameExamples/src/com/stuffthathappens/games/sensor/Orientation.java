@@ -23,10 +23,6 @@ public class Orientation extends Activity implements android.hardware.SensorEven
 	private PowerManager.WakeLock	wl;
 
 	private float					x, y, z;
-
-	// deltas for calibration
-	private float					cx, cy, cz;
-
 	private long					lastUpdate	= -1;
 
 	@Override
@@ -49,10 +45,6 @@ public class Orientation extends Activity implements android.hardware.SensorEven
 		wl.release();
 		sensorMgr.unregisterListener(this, sensorMgr.getDefaultSensor(Sensor.TYPE_ORIENTATION));
 		sensorMgr = null;
-
-		cx = 0;
-		cy = 0;
-		cz = 0;
 	}
 
 	@Override
@@ -109,9 +101,9 @@ public class Orientation extends Activity implements android.hardware.SensorEven
 				y = event.values[DATA_Y];
 				z = event.values[DATA_Z];
 
-				xLabel.setText(String.format("X: %+2.5f", (x + cx), cx));
-				yLabel.setText(String.format("Y: %+2.5f", (y + cy), cy));
-				zLabel.setText(String.format("Z: %+2.5f", (z + cz), cz));
+				xLabel.setText(String.format("X: %+2.5f", x));
+				yLabel.setText(String.format("Y: %+2.5f", y));
+				zLabel.setText(String.format("Z: %+2.5f", z));
 			}
 		}
 	}
