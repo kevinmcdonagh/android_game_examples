@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.stuffthathappens.games.accel.SensorEventListener;
+
 public class Home extends Activity implements OnClickListener {
 	
 	private Button accelerometerBtn;
@@ -37,7 +39,7 @@ public class Home extends Activity implements OnClickListener {
     	if (v == sensorListBtn) {
     		startActivity(new Intent(Home.this, Sensors.class));
     	} else if (v == accelerometerBtn) {
-    		startActivity(new Intent(Home.this, Accel.class));
+    		startActivity(new Intent(Home.this, SensorEventListener.class));
     	} else if (v == bouncingBallBtn) {
     		startActivity(new Intent(Home.this, BouncingBallActivity.class));
     	} else if (v == bubblesBtn) {

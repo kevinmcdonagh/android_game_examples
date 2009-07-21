@@ -1,4 +1,4 @@
-package com.stuffthathappens.games;
+package com.stuffthathappens.games.accel;
 
 import static android.hardware.SensorManager.DATA_X;
 import static android.hardware.SensorManager.DATA_Y;
@@ -9,9 +9,14 @@ import static android.hardware.SensorManager.SENSOR_STATUS_ACCURACY_HIGH;
 import static android.hardware.SensorManager.SENSOR_STATUS_ACCURACY_LOW;
 import static android.hardware.SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM;
 import static android.hardware.SensorManager.SENSOR_STATUS_UNRELIABLE;
+
+import com.stuffthathappens.games.R;
+import com.stuffthathappens.games.R.id;
+import com.stuffthathappens.games.R.layout;
+import com.stuffthathappens.games.R.string;
+
 import android.app.Activity;
 import android.content.Context;
-import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.PowerManager;
@@ -25,42 +30,42 @@ import android.widget.TextView;
  * 
  * @author Eric M. Burke
  */
-public class Accel extends Activity implements SensorListener, OnClickListener {
-	private SensorManager sensorMgr;
-	private TextView accuracyLabel;
-	private TextView xLabel, yLabel, zLabel;
-	private Button calibrateButton;
-    private PowerManager.WakeLock wl;  
-	
-	private float x, y, z;
-	
+public class SensorListener extends Activity implements android.hardware.SensorListener, OnClickListener {
+	private SensorManager			sensorMgr;
+	private TextView				accuracyLabel;
+	private TextView				xLabel, yLabel, zLabel;
+	private Button					calibrateButton;
+	private PowerManager.WakeLock	wl;
+
+	private float					x, y, z;
+
 	// deltas for calibration
-	private float cx, cy, cz;
-	
-	private long lastUpdate = -1;
-	
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);        
-        setContentView(R.layout.accel);
-        accuracyLabel = (TextView) findViewById(R.id.accuracy_label);
-        xLabel = (TextView) findViewById(R.id.x_label);
-        yLabel = (TextView) findViewById(R.id.y_label);
-        zLabel = (TextView) findViewById(R.id.z_label);
-        calibrateButton = (Button) findViewById(R.id.calibrate_button);
-        calibrateButton.setOnClickListener(this);
-        
-        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);  
-        wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen"); 
-    }
+	private float					cx, cy, cz;
+
+	private long					lastUpdate	= -1;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.accel);
+		accuracyLabel = (TextView) findViewById(R.id.accuracy_label);
+		xLabel = (TextView) findViewById(R.id.x_label);
+		yLabel = (TextView) findViewById(R.id.y_label);
+		zLabel = (TextView) findViewById(R.id.z_label);
+		calibrateButton = (Button) findViewById(R.id.calibrate_button);
+		calibrateButton.setOnClickListener(this);
+
+		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+		wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen");
+	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-        wl.release();  
+		wl.release();
 		sensorMgr.unregisterListener(this, SENSOR_ACCELEROMETER);
 		sensorMgr = null;
-		
+
 		cx = 0;
 		cy = 0;
 		cz = 0;
@@ -69,12 +74,10 @@ public class Accel extends Activity implements SensorListener, OnClickListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
-        wl.acquire();  
+		wl.acquire();
 		sensorMgr = (SensorManager) getSystemService(SENSOR_SERVICE);
-		boolean accelSupported = sensorMgr.registerListener(this, 
-				SENSOR_ACCELEROMETER,
-				SENSOR_DELAY_UI);
-		
+		boolean accelSupported = sensorMgr.registerListener(this, SENSOR_ACCELEROMETER, SENSOR_DELAY_UI);
+
 		if (!accelSupported) {
 			// on accelerometer on this device
 			sensorMgr.unregisterListener(this, SENSOR_ACCELEROMETER);
@@ -88,18 +91,18 @@ public class Accel extends Activity implements SensorListener, OnClickListener {
 		// limit our updates as we do in onSensorChanged(...)
 		if (sensor == SENSOR_ACCELEROMETER) {
 			switch (accuracy) {
-			case SENSOR_STATUS_UNRELIABLE:
-				accuracyLabel.setText(R.string.accuracy_unreliable);
-				break;
-			case SENSOR_STATUS_ACCURACY_LOW:
-				accuracyLabel.setText(R.string.accuracy_low);
-				break;
-			case SENSOR_STATUS_ACCURACY_MEDIUM:
-				accuracyLabel.setText(R.string.accuracy_medium);
-				break;
-			case SENSOR_STATUS_ACCURACY_HIGH:
-				accuracyLabel.setText(R.string.accuracy_high);
-				break;
+				case SENSOR_STATUS_UNRELIABLE:
+					accuracyLabel.setText(R.string.accuracy_unreliable);
+					break;
+				case SENSOR_STATUS_ACCURACY_LOW:
+					accuracyLabel.setText(R.string.accuracy_low);
+					break;
+				case SENSOR_STATUS_ACCURACY_MEDIUM:
+					accuracyLabel.setText(R.string.accuracy_medium);
+					break;
+				case SENSOR_STATUS_ACCURACY_HIGH:
+					accuracyLabel.setText(R.string.accuracy_high);
+					break;
 			}
 		}
 	}
@@ -113,14 +116,14 @@ public class Accel extends Activity implements SensorListener, OnClickListener {
 			// with garbage collection
 			if (lastUpdate == -1 || (curTime - lastUpdate) > 100) {
 				lastUpdate = curTime;
-				
+
 				x = values[DATA_X];
 				y = values[DATA_Y];
 				z = values[DATA_Z];
-				
-				xLabel.setText(String.format("X: %+2.5f (%+2.5f)", (x+cx), cx));
-				yLabel.setText(String.format("Y: %+2.5f (%+2.5f)", (y+cy), cy));
-				zLabel.setText(String.format("Z: %+2.5f (%+2.5f)", (z+cz), cz));
+
+				xLabel.setText(String.format("X: %+2.5f (%+2.5f)", (x + cx), cx));
+				yLabel.setText(String.format("Y: %+2.5f (%+2.5f)", (y + cy), cy));
+				zLabel.setText(String.format("Z: %+2.5f (%+2.5f)", (z + cz), cz));
 			}
 		}
 	}
