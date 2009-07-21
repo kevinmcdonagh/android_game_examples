@@ -10,9 +10,11 @@ import static android.hardware.SensorManager.SENSOR_STATUS_ACCURACY_LOW;
 import static android.hardware.SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM;
 import static android.hardware.SensorManager.SENSOR_STATUS_UNRELIABLE;
 import android.app.Activity;
+import android.content.Context;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -28,6 +30,7 @@ public class Accel extends Activity implements SensorListener, OnClickListener {
 	private TextView accuracyLabel;
 	private TextView xLabel, yLabel, zLabel;
 	private Button calibrateButton;
+    private PowerManager.WakeLock wl;  
 	
 	private float x, y, z;
 	
@@ -46,12 +49,15 @@ public class Accel extends Activity implements SensorListener, OnClickListener {
         zLabel = (TextView) findViewById(R.id.z_label);
         calibrateButton = (Button) findViewById(R.id.calibrate_button);
         calibrateButton.setOnClickListener(this);
+        
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);  
+        wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen"); 
     }
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		
+        wl.release();  
 		sensorMgr.unregisterListener(this, SENSOR_ACCELEROMETER);
 		sensorMgr = null;
 		
@@ -63,7 +69,7 @@ public class Accel extends Activity implements SensorListener, OnClickListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
+        wl.acquire();  
 		sensorMgr = (SensorManager) getSystemService(SENSOR_SERVICE);
 		boolean accelSupported = sensorMgr.registerListener(this, 
 				SENSOR_ACCELEROMETER,
