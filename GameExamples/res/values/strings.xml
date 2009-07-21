@@ -4,6 +4,9 @@
     <string name="app_name">Game Examples</string>
 	<string name="accelerometer">Accelerometer</string>
 	<string name="orientation">Orientation</string>
+	<string name="orientation_value">Orientation: 000</string>
+	<string name="course_orientation">Course Orientation</string>
+	<string name="current_sector_value">Sector: UPRIGHT</string>
 
 	<string name="accuracy_unknown">Accuracy: Unknown</string>
 	<string name="accuracy_unreliable">Accuracy: Unreliable</string>

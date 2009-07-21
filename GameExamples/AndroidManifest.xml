@@ -30,6 +30,11 @@
     		android:name=".sensor.Orientation" 
     		android:label="@string/accelerometer"
     		android:screenOrientation="portrait" />
+
+    	<activity 
+    		android:name=".sensor.CourseGrainedOrientation" 
+    		android:label="@string/accelerometer"
+    		android:screenOrientation="portrait" />
     		
     	<activity 
     		android:name=".sensor.Accelerometer" 

@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.stuffthathappens.games.sensor.Accelerometer;
+import com.stuffthathappens.games.sensor.CourseGrainedOrientation;
 import com.stuffthathappens.games.sensor.Orientation;
 
 public class Home extends Activity implements OnClickListener {
@@ -17,6 +18,7 @@ public class Home extends Activity implements OnClickListener {
 	private Button sensorListBtn;
 	private Button bouncingBallBtn;
 	private Button bubblesBtn;
+	private Button	courseOrientationBtn;
 	
     /** Called when the activity is first created. */
     @Override
@@ -29,6 +31,9 @@ public class Home extends Activity implements OnClickListener {
 
         orientationBtn = (Button) findViewById(R.id.orientation_btn);
         orientationBtn.setOnClickListener(this);
+        
+        courseOrientationBtn = (Button) findViewById(R.id.course_orientation_btn);
+        courseOrientationBtn.setOnClickListener(this);
         
         sensorListBtn = (Button) findViewById(R.id.sensor_list_btn);
         sensorListBtn.setOnClickListener(this);
@@ -47,6 +52,8 @@ public class Home extends Activity implements OnClickListener {
     		startActivity(new Intent(Home.this, Accelerometer.class));
     	} else if (v == orientationBtn) {
     		startActivity(new Intent(Home.this, Orientation.class));
+    	} else if (v == courseOrientationBtn) {
+    		startActivity(new Intent(Home.this, CourseGrainedOrientation.class));
     	} else if (v == bouncingBallBtn) {
     		startActivity(new Intent(Home.this, BouncingBallActivity.class));
     	} else if (v == bubblesBtn) {
