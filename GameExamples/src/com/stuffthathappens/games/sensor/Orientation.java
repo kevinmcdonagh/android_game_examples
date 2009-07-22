@@ -5,6 +5,7 @@ import static android.hardware.SensorManager.DATA_Y;
 import static android.hardware.SensorManager.DATA_Z;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
@@ -15,7 +16,7 @@ import android.widget.TextView;
 
 import com.stuffthathappens.games.R;
 
-public class Orientation extends Activity implements android.hardware.SensorEventListener{
+public class Orientation extends Activity implements android.hardware.SensorEventListener {
 
 	private SensorManager			sensorMgr;
 	private TextView				accuracyLabel;
@@ -37,8 +38,7 @@ public class Orientation extends Activity implements android.hardware.SensorEven
 		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 		wl = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "DoNotDimScreen");
 	}
-	
-	
+
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -60,7 +60,7 @@ public class Orientation extends Activity implements android.hardware.SensorEven
 			accuracyLabel.setText(R.string.no_accelerometer);
 		}
 	}
-	
+
 	// from the android.hardware.SensorListener interface
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		// this method is called very rarely, so we don't have to
@@ -83,18 +83,16 @@ public class Orientation extends Activity implements android.hardware.SensorEven
 		}
 	}
 
-	
 	// from the android.hardware.SensorListener interface
 	public void onSensorChanged(SensorEvent event) {
-		Log.i("BAM", "Hello");
 		if (event.sensor.getType() == Sensor.TYPE_ORIENTATION) {
 			long curTime = System.currentTimeMillis();
-			
+
 			// only allow one update every 100ms, otherwise updates
 			// come way too fast and the phone gets bogged down
 			// with garbage collection
 			if (lastUpdate == -1 || (curTime - lastUpdate) > 100) {
-				Log.i("BAM", "time[" + curTime +"], X:[" + event.values[DATA_X]+ "] Y:["+event.values[DATA_Y]+"] Z:["+event.values[DATA_Z]+"]");
+				Log.i("BAM", "time[" + curTime + "], X:[" + event.values[DATA_X] + "] Y:[" + event.values[DATA_Y] + "] Z:[" + event.values[DATA_Z] + "]");
 				lastUpdate = curTime;
 
 				x = event.values[DATA_X];

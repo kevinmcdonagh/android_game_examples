@@ -3,13 +3,9 @@ package com.stuffthathappens.games.sensor;
 import static android.hardware.SensorManager.DATA_X;
 import static android.hardware.SensorManager.DATA_Y;
 import static android.hardware.SensorManager.DATA_Z;
-import static android.hardware.SensorManager.SENSOR_ACCELEROMETER;
-import static android.hardware.SensorManager.SENSOR_STATUS_ACCURACY_HIGH;
-import static android.hardware.SensorManager.SENSOR_STATUS_ACCURACY_LOW;
-import static android.hardware.SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM;
-import static android.hardware.SensorManager.SENSOR_STATUS_UNRELIABLE;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
@@ -29,6 +25,7 @@ import com.stuffthathappens.games.R;
  * @author Eric M. Burke
  */
 public class Accelerometer extends Activity implements android.hardware.SensorEventListener, OnClickListener {
+	
 	private SensorManager			sensorMgr;
 	private TextView				accuracyLabel;
 	private TextView				xLabel, yLabel, zLabel;
@@ -116,7 +113,6 @@ public class Accelerometer extends Activity implements android.hardware.SensorEv
 	
 	// from the android.hardware.SensorListener interface
 	public void onSensorChanged(SensorEvent event) {
-		Log.i("BAM", "Hello");
 		if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
 			long curTime = System.currentTimeMillis();
 			
@@ -127,9 +123,9 @@ public class Accelerometer extends Activity implements android.hardware.SensorEv
 				Log.i("BAM", "time[" + curTime +"], X:[" + event.values[DATA_X]+ "] Y:["+event.values[DATA_Y]+"] Z:["+event.values[DATA_Z]+"]");
 				lastUpdate = curTime;
 
-				x = event.values[DATA_X];
-				y = event.values[DATA_Y];
-				z = event.values[DATA_Z];
+				x = event.values[SensorManager.DATA_X];
+				y = event.values[SensorManager.DATA_Y];
+				z = event.values[SensorManager.DATA_Z];
 
 				xLabel.setText(String.format("X: %+2.5f (%+2.5f)", (x + cx), cx));
 				yLabel.setText(String.format("Y: %+2.5f (%+2.5f)", (y + cy), cy));
