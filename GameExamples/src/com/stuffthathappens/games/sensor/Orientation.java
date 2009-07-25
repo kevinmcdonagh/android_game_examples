@@ -1,17 +1,15 @@
 package com.stuffthathappens.games.sensor;
 
-import static android.hardware.SensorManager.DATA_X;
-import static android.hardware.SensorManager.DATA_Y;
-import static android.hardware.SensorManager.DATA_Z;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.PowerManager;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.stuffthathappens.games.R;
@@ -92,16 +90,18 @@ public class Orientation extends Activity implements android.hardware.SensorEven
 			// come way too fast and the phone gets bogged down
 			// with garbage collection
 			if (lastUpdate == -1 || (curTime - lastUpdate) > 100) {
-				Log.i("BAM", "time[" + curTime + "], X:[" + event.values[DATA_X] + "] Y:[" + event.values[DATA_Y] + "] Z:[" + event.values[DATA_Z] + "]");
 				lastUpdate = curTime;
 
-				x = event.values[DATA_X];
-				y = event.values[DATA_Y];
-				z = event.values[DATA_Z];
+				x = event.values[SensorManager.DATA_X];
+				y = event.values[SensorManager.DATA_Y];
+				z = event.values[SensorManager.DATA_Z];
 
-				xLabel.setText(String.format("X: %+2.5f", x));
-				yLabel.setText(String.format("Y: %+2.5f", y));
-				zLabel.setText(String.format("Z: %+2.5f", z));
+				NumberFormat formatter = new DecimalFormat("000");
+
+
+				xLabel.setText("X:" + formatter.format(x) + "  (Azimuth)" );
+				yLabel.setText("Y:" + formatter.format(y) + "  (Pitch)" );
+				zLabel.setText("Z:" + formatter.format(z) + "  (Roll)");
 			}
 		}
 	}

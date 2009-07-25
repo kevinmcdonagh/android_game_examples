@@ -1,17 +1,12 @@
 package com.stuffthathappens.games.sensor;
 
-import static android.hardware.SensorManager.DATA_X;
-import static android.hardware.SensorManager.DATA_Y;
-import static android.hardware.SensorManager.DATA_Z;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.PowerManager;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -120,7 +115,6 @@ public class Accelerometer extends Activity implements android.hardware.SensorEv
 			// come way too fast and the phone gets bogged down
 			// with garbage collection
 			if (lastUpdate == -1 || (curTime - lastUpdate) > 100) {
-				Log.i("BAM", "time[" + curTime +"], X:[" + event.values[DATA_X]+ "] Y:["+event.values[DATA_Y]+"] Z:["+event.values[DATA_Z]+"]");
 				lastUpdate = curTime;
 
 				x = event.values[SensorManager.DATA_X];

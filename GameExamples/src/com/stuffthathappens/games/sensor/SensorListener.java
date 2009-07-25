@@ -9,12 +9,6 @@ import static android.hardware.SensorManager.SENSOR_STATUS_ACCURACY_HIGH;
 import static android.hardware.SensorManager.SENSOR_STATUS_ACCURACY_LOW;
 import static android.hardware.SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM;
 import static android.hardware.SensorManager.SENSOR_STATUS_UNRELIABLE;
-
-import com.stuffthathappens.games.R;
-import com.stuffthathappens.games.R.id;
-import com.stuffthathappens.games.R.layout;
-import com.stuffthathappens.games.R.string;
-
 import android.app.Activity;
 import android.content.Context;
 import android.hardware.SensorManager;
@@ -24,6 +18,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.stuffthathappens.games.R;
 
 /**
  * Displays values from the accelerometer sensor.

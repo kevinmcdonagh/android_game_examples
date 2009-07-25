@@ -86,7 +86,6 @@ public class CourseGrainedOrientation extends Activity {
 
 			return OnRotationEvent.FLAT;
 		}
-
 	}
 
 	private class OrientaionStatusView extends View {
